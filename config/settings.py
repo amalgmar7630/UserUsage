@@ -34,6 +34,8 @@ AUTH_USER_MODEL = "users.User"
 # Application definition
 
 INSTALLED_APPS = [
+    'drf_yasg',
+    'rest_framework',
     'usage_types.apps.UsageTypesConfig',
     'usage.apps.UsageConfig',
     'users.apps.UsersConfig',
