@@ -1,4 +1,4 @@
-# ApplicationTest
+# UserUsage
 
 
 This project was generated with Django 3.1.7. These are steps to run the project:
