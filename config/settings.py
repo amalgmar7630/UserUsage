@@ -29,11 +29,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'u3(!=rla^qi9c^fg0q+q6vtydlk04q8chz+8v@-0!mor=ass@-'
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = "users.User"
 
 # Application definition
 
 INSTALLED_APPS = [
     'usage_types.apps.UsageTypesConfig',
+    'usage.apps.UsageConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
