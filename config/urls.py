@@ -19,6 +19,7 @@ from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from rest_framework_jwt.views import refresh_jwt_token
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,6 +38,9 @@ urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('auth/', include('rest_auth.urls')),
+    path('auth/signup/', include('rest_auth.registration.urls')),
+    path('auth/refresh-token/', refresh_jwt_token),
     path('admin/', admin.site.urls),
     path("usage_types/", include("usage_types.urls", namespace='usage_types')),
     path("users/", include("users.urls", namespace='users')),
