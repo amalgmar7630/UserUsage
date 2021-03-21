@@ -7,10 +7,9 @@ from rest_framework.test import APITestCase
 class UsageTestCase(APITestCase):
     register_url = "/auth/signup/"
     login_url = "/auth/login/"
-    post_usage_type_url = "/usage_types/"
-    post_usage_current_user_url = "/users/currentUserUsages/"
-    post_usage_user = "/usage/"
-    get_usage_user = "/usage/"
+    usage_type_url = "/usage_types/"
+    usage_current_user_url = "/users/currentUserUsages/"
+    usage_user = "/usage/"
 
     # Sign Up information
     sign_up_data = {
@@ -38,7 +37,7 @@ class UsageTestCase(APITestCase):
     }
 
     def test_usage_flow_without_authentification(self):
-        response_get_current_user_usages = self.client.get(self.post_usage_current_user_url,
+        response_get_current_user_usages = self.client.get(self.usage_current_user_url,
                                                            format="json")
         # expected response
         self.assertEqual(response_get_current_user_usages.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -64,7 +63,7 @@ class UsageTestCase(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='JWT ' + token)
 
         # post usage type
-        response_post_user_type = self.client.post(self.post_usage_type_url, self.usage_type_data, format="json")
+        response_post_user_type = self.client.post(self.usage_type_url, self.usage_type_data, format="json")
         # expected response
         self.assertEqual(response_post_user_type.status_code, status.HTTP_201_CREATED)
         self.assertTrue("id" in response_post_user_type.json())
@@ -83,7 +82,7 @@ class UsageTestCase(APITestCase):
             "usage_type": usage_type_id,
             "usage_at": today_datetime
         }
-        response_post_current_user_usage = self.client.post(self.post_usage_current_user_url, usage_current_user_data,
+        response_post_current_user_usage = self.client.post(self.usage_current_user_url, usage_current_user_data,
                                                             format="json")
         # expected response
         self.assertEqual(response_post_current_user_usage.status_code, status.HTTP_201_CREATED)
@@ -108,13 +107,13 @@ class UsageTestCase(APITestCase):
             "usage_type": usage_type_id2,
             "usage_at": date_tomorrow
         }
-        response_post_user_usage = self.client.post(self.post_usage_user, usage_user_data,
+        response_post_user_usage = self.client.post(self.usage_user, usage_user_data,
                                                     format="json")
         # expected response
         self.assertEqual(response_post_user_usage.status_code, status.HTTP_201_CREATED)
 
         # Get usages
-        response_get_usages = self.client.get(self.get_usage_user,
+        response_get_usages = self.client.get(self.usage_user,
                                               format="json")
         # expected response
         self.assertEqual(response_get_usages.status_code, status.HTTP_200_OK)
@@ -128,7 +127,7 @@ class UsageTestCase(APITestCase):
             "usage_type": 2
         }
         response_edit_current_user_usage = self.client.patch(
-            self.post_usage_current_user_url + str(usage_current_user) + '/',
+            self.usage_current_user_url + str(usage_current_user) + '/',
             updated_current_user_usage_data,
             format="json")
         # expected response
@@ -136,14 +135,14 @@ class UsageTestCase(APITestCase):
 
         # delete usage for current user
         response_delete_current_user_usage = self.client.delete(
-            self.post_usage_current_user_url + str(usage_current_user) + '/',
+            self.usage_current_user_url + str(usage_current_user) + '/',
             format="json")
 
         # expected response
         self.assertEqual(response_delete_current_user_usage.status_code, status.HTTP_204_NO_CONTENT)
 
         # Get usages
-        response_get_usages = self.client.get(self.get_usage_user,
+        response_get_usages = self.client.get(self.usage_user,
                                               format="json")
         # expected response
         self.assertEqual(response_get_usages.status_code, status.HTTP_200_OK)
