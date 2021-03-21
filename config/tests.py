@@ -70,7 +70,7 @@ class UsageTestCase(APITestCase):
         usage_type_id = response_post_user_type.json()["id"]
 
         # post usage type2
-        response_post_user_type2 = self.client.post(self.post_usage_type_url, self.usage_type_data2, format="json")
+        response_post_user_type2 = self.client.post(self.usage_type_url, self.usage_type_data2, format="json")
         # expected response
         self.assertEqual(response_post_user_type2.status_code, status.HTTP_201_CREATED)
         self.assertTrue("id" in response_post_user_type2.json())
@@ -101,7 +101,7 @@ class UsageTestCase(APITestCase):
         user_pk1 = user1["pk"]
 
         # Post usage for current user
-        date_tomorrow = datetime.strptime(today_datetime, "%Y-%m-%dT00:00") + timedelta(days=1)
+        date_tomorrow = datetime.strptime(today_datetime, "%Y-%m-%dT00:00") + timedelta(days=3)
         usage_user_data = {
             "user": user_pk1,
             "usage_type": usage_type_id2,
@@ -132,6 +132,14 @@ class UsageTestCase(APITestCase):
             format="json")
         # expected response
         self.assertEqual(response_edit_current_user_usage.status_code, status.HTTP_200_OK)
+
+        # Get usages with Params
+        date_max = datetime.strptime(today_datetime, "%Y-%m-%dT00:00") + timedelta(days=2)
+        response_get_usages = self.client.get(self.usage_user, {"usage_at__lte": date_max},
+                                              format="json")
+        # expected response
+        self.assertEqual(response_get_usages.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get_usages.json()), 1)
 
         # delete usage for current user
         response_delete_current_user_usage = self.client.delete(
