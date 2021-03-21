@@ -21,3 +21,5 @@ This project was generated with Django 3.1.7. These are steps to run the project
 - Run python manage.py migrate to apply migrations
 
 - Create Super User by running python manage.py createsuperuser
+
+- Run tests with running python manage.py test
