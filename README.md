@@ -3,6 +3,30 @@
 
 This project was generated with Django 3.1.7. These are steps to run the project:
 
+I created Ubuntu 16.04 VM using Vagrant and installed requirements and made the database setup into it, you can use it by flowing these steps:
+
+      -Set some customized environment variables in setting.py file, add new .env file under config folder and add:
+      
+              DATABASE_NAME=planetly
+              DEBUG=on
+              DATABASE_PASSWORD = postgres1
+              DATABASE_USERNAME = postgres1
+              
+       
+       - Then install VirtualBox and Vagrant.
+       
+       - Run vagrant up in console.
+       
+       - run vagrant ssh.
+       
+       - The features added using vagrants are installing ubuntu packages, install postgresql and setup database, install requirements and create super user with the credentials:username: admin, email:admin@example.com, pwd: adminpass
+      
+      
+      
+     
+Otherwise you can make the previous features manually:
+
+
 - Create a Virtual Environment with Python 3.9.1
 
 - Install PostgreSQL and create new databse using pgAdmin if you are using windows 10.
@@ -11,7 +35,7 @@ This project was generated with Django 3.1.7. These are steps to run the project
 
 - Set some customized environment variables in setting.py file, add new .env file under config folder and add:
 
-                DATABASE_NAME=planetly
+                DATABASE_NAME=db_name
                 DEBUG=on
                 DATABASE_PASSWORD = password_db
                 DATABASE_USERNAME = username_db
