@@ -101,11 +101,11 @@ class UsageTestCase(APITestCase):
         user_pk1 = user1["pk"]
 
         # Post usage for current user
-        date_tomorrow = datetime.strptime(today_datetime, "%Y-%m-%dT00:00") + timedelta(days=3)
+        date_after_3 = datetime.strptime(today_datetime, "%Y-%m-%dT00:00") + timedelta(days=3)
         usage_user_data = {
             "user": user_pk1,
             "usage_type": usage_type_id2,
-            "usage_at": date_tomorrow
+            "usage_at": date_after_3
         }
         response_post_user_usage = self.client.post(self.usage_user, usage_user_data,
                                                     format="json")
@@ -135,7 +135,7 @@ class UsageTestCase(APITestCase):
 
         # Get usages with Params
         date_max = datetime.strptime(today_datetime, "%Y-%m-%dT00:00") + timedelta(days=2)
-        response_get_usages = self.client.get(self.usage_user, {"usage_at__lte": date_max},
+        response_get_usages = self.client.get(self.usage_user, {"usage_at__lte": date_max, "order": "-usage_at"},
                                               format="json")
         # expected response
         self.assertEqual(response_get_usages.status_code, status.HTTP_200_OK)

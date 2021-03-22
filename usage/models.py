@@ -21,4 +21,4 @@ class Usage(models.Model):
     usage_at = models.DateTimeField(_("Usage At"))
 
     def __str__(self):
-        return str(self.id)
+        return self.id

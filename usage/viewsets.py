@@ -7,7 +7,7 @@ from usage.serializers import UsagesUserSerializer, CreateOrUpdateUsageUserSeria
 
 class UsageViewSet(viewsets.ModelViewSet):
     serializer_class = CreateOrUpdateUsageUserSerializer
-    queryset = Usage.objects.all()
+    queryset = Usage.objects.select_related('usage_type', 'user').all()
     filterset_class = UsageFilter
 
     def get_serializer_class(self):

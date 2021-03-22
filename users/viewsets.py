@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
+from rest_framework.viewsets import GenericViewSet
 
 from usage.filtersets import UsageFilter
 from usage.models import Usage
@@ -7,15 +8,15 @@ from users.models import User
 from users.serializers import UsersSerializer, UsagesSerializer
 
 
-class UsersViewSet(viewsets.ModelViewSet):
+class UsersViewSet(mixins.RetrieveModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet):
     serializer_class = UsersSerializer
     queryset = User.objects.all()
-    http_method_names = ['get']
 
 
 class CurrentUserUsagesViewSet(viewsets.ModelViewSet):
     serializer_class = CreateOrUpdateUsageSerializer
-    queryset = Usage.objects.all()
     filterset_class = UsageFilter
 
     def get_serializer_class(self):
@@ -24,8 +25,8 @@ class CurrentUserUsagesViewSet(viewsets.ModelViewSet):
         return self.serializer_class
 
     def get_queryset(self):
-        return Usage.objects.filter(user_id=self.request.user.id)
+        return Usage.objects.select_related('usage_type').filter(user_id=self.request.user.id)
 
-    def perform_create(self, serializer, commit=True):
+    def perform_create(self, serializer):
         super(CurrentUserUsagesViewSet, self).perform_create(serializer)
         serializer.save(user=self.request.user)
