@@ -9,8 +9,8 @@ I created Ubuntu 16.04 VM using Vagrant and installed requirements and made the 
       
               DATABASE_NAME=planetly
               DEBUG=on
-              DATABASE_PASSWORD = postgres1
-              DATABASE_USERNAME = postgres1
+              DATABASE_PASSWORD=postgres1
+              DATABASE_USERNAME=postgres1
               
        
        - Then install VirtualBox and Vagrant.
@@ -39,8 +39,8 @@ Otherwise you can make the previous features manually:
 
                 DATABASE_NAME=db_name
                 DEBUG=on
-                DATABASE_PASSWORD = password_db
-                DATABASE_USERNAME = username_db
+                DATABASE_PASSWORD=password_db
+                DATABASE_USERNAME=username_db
 
 - Run python manage.py makemigrations to create new migrations based on the changes you have made to your models
 
