@@ -19,7 +19,9 @@ I created Ubuntu 16.04 VM using Vagrant and installed requirements and made the 
        
        - run vagrant ssh.
        
-       - The features added using vagrants are installing ubuntu packages, install postgresql and setup database, install requirements and create super user with the credentials:username: admin, email:admin@example.com, pwd: adminpass
+       - The features added using vagrants are installing ubuntu packages, install postgresql and setup database, 
+       
+       install requirements and create super user with the credentials:username: admin, email:admin@example.com, pwd: adminpass
       
       
       
