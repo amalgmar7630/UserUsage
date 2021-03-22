@@ -52,7 +52,7 @@ Otherwise you can make the previous features manually:
 
 - To use swagger,I made it public to view requests but you need to login to autorize requests so use auth/login and fill username and password or use auth/signup to register new user and then you will get a token and have access to API requests.
 
-- The Test takes about 5 hours and the planning phase is the challenging part for me because I needed to think about the frontend how it should be the UI so as a user perspective I was thinking that there should be 2 seperate interfaces one for adding usage types and the other is to apply CRUD actions on usage:
+- The Test takes about 5 hours in a non-continuous way and the planning phase is the challenging part for me because I needed to think about the frontend how it should be the UI so as a user perspective I was thinking that there should be 2 seperate interfaces one for adding usage types and the other is to apply CRUD actions on usage:
 
 
        - user should signup and sign in to get a token and autorize requets using JWT.
